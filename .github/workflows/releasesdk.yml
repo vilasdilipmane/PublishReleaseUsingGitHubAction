@@ -19,6 +19,11 @@ jobs:
       - name: Set tag from project
         run: |
           exec .github/scripts/set-tag.sh
+      - name: Read Release Note
+        id: release_note
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./HelloGithuActions/release_note.txt
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -29,5 +34,6 @@ jobs:
           release_name: ${{ env.TagName }}
           body: |
             ## ${{ env.TagName }} ${{ steps.current-time.outputs.formattedTime }}
+            ${{ steps.release_note.outputs.content }}
           draft: false
           prerelease: false
