@@ -2,7 +2,7 @@
 
 set -eo pipefail
 
-export buildNumber=50
+export buildNumber=2.0.8
 echo "TagName=$buildNumber" >> $GITHUB_ENV
 
 
