@@ -24,6 +24,12 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: ./HelloGithuActions/release_note.txt
+      - name: Upload release assets
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            $CHANGELOG.md
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -35,5 +41,5 @@ jobs:
           body: |
             ## ${{ env.TagName }} ${{ steps.current-time.outputs.formattedTime }}
             ${{ steps.release_note.outputs.content }}
-          files: |
-              $release_note.txt
+          draft: false
+          prerelease: false
