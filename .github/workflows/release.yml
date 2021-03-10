@@ -12,8 +12,6 @@ jobs:
     steps:
       - name: Checkout project
         uses: actions/checkout@v2
-      - name: Set env
-        run: echo "RELEASE_VERSION=${GITHUB_REF#tags/}" >> $GITHUB_ENV
       - name: Get the version
         id: get_version
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
@@ -28,8 +26,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ env.RELEASE_VERSION }}
-          release_name: ${{ env.RELEASE_VERSION }}
+          tag_name: ${{ steps.get_version.outputs.tag }}
+          release_name: ${{ steps.get_version.outputs.tag }}
           body: |
             ## ${{ steps.get_version.outputs.tag }} ${{ steps.current-time.outputs.formattedTime }}
           draft: false
