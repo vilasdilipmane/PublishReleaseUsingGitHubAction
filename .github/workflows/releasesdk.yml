@@ -2,7 +2,7 @@ name: releasesdk
 
 on:
   push:
-    branches: [ branch ]
+    branches: [ main ]
 
 jobs:
   deploy:
