@@ -16,7 +16,7 @@ jobs:
         run: echo "RELEASE_VERSION=${GITHUB_REF#tags/}" >> $GITHUB_ENV
       - name: Get the version
         id: get_version
-        run: echo ::set-output name=VERSION::${{ env.RELEASE_VERSION }}
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
       - name: Get current time
         uses: 1466587594/get-current-time@v2
         id: current-time
@@ -31,6 +31,6 @@ jobs:
           tag_name: ${{ env.RELEASE_VERSION }}
           release_name: ${{ env.RELEASE_VERSION }}
           body: |
-            ## ${{ env.RELEASE_VERSION }} ${{ steps.current-time.outputs.formattedTime }}
+            ## ${{ steps.get_version.outputs.tag }} ${{ steps.current-time.outputs.formattedTime }}
           draft: false
           prerelease: false
