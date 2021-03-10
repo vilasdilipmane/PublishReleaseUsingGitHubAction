@@ -17,8 +17,5 @@ jobs:
           exec .github/scripts/set-tag.sh
       - name: Test build number
         run: |
-          echo "RELEASE_VERSION=$buildNumber" >> $GITHUB_ENV
-      - name: Test
-        run: |
-          echo $RELEASE_VERSION
-          echo ${{ env.RELEASE_VERSION }}
+          echo $buildNumber
+         
